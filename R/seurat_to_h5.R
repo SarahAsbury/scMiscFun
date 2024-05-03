@@ -1,0 +1,49 @@
+#' seurat_to_h5
+#'
+#' Converts RNA and PROTEIN experiments from a seurat object into an h5ad file for import to Python.
+#'
+#' @param x seurt object
+#' @param output_dir_prefix # full path to output directory + any prefix. Will append assays and h5.Seurat to the file
+#' @param altExp_name sce object alt exp name to  to export. one file will be exported per each experiment.
+#' @return exports h5seurat and h5ad files from a seurat object
+#' @examples seurat_to_h5(seurat, "path/to/output/directory/output_prefix")
+#' @import dplyr
+#' @import purrr
+#' @import Seurat
+#' @import SeuratDisk
+#' @export
+
+
+seurat_to_h5 <- function(x, #seurat
+                         output_dir_prefix,
+                         assays = c("RNA", "PROTEIN")
+){
+
+  map(assays,
+
+      \(assay){
+
+        # params
+        output_fn <- sprintf("%s_%s.h5Seurat", output_dir_prefix, assay)
+        cat("\n export h5ad file:", output_fn, "\n\n")
+
+        # dm
+        export_seurat <- x
+        DefaultAssay(export_seurat) <- assay
+        export_seurat[[assay]]$data <- NULL  # remove log counts to export counts
+
+        # export h5Seurat
+        SaveH5Seurat(export_seurat,
+                     filename = output_fn,
+                     overwrite = T)
+
+        # convert to h5ad
+        Convert(output_fn,
+                dest = "h5ad",
+                overwrite = T)
+      }
+  )
+
+}
+
+
