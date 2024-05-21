@@ -27,7 +27,7 @@ plot_mrh <- function(sce,
 
       ~{
         plots <- list()
-        if("m" %in% include){
+        if(str_detect(regex("m", ignore_case = T))){
           plots <- c(plots,
                      list(
                        plotColData(sce, x = "sum", y="subsets_Mito_percent", colour_by=.x) +
@@ -42,7 +42,7 @@ plot_mrh <- function(sce,
           )
         }
 
-        if("r" %in% include){
+        if(str_detect(regex("r", ignore_case = T))){
           plots <- c(plots,
                      list(
                        plotColData(sce, x = "sum", y="subsets_Ribo_percent", colour_by=.x) +
@@ -56,7 +56,7 @@ plot_mrh <- function(sce,
 
         }
 
-        if("h" %in% include){
+        if(str_detect(regex("h", ignore_case = T))){
           plots <- c(plot,
                      list(plotColData(sce, x = "sum", y="subsets_Hemo_percent", colour_by=.x) +
                             theme(legend.position = "none"),
