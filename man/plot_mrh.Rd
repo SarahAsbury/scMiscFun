@@ -4,7 +4,7 @@
 \alias{plot_mrh}
 \title{plot_sample_qc}
 \usage{
-plot_mrh(sce, plot_by, mit_cutoff)
+plot_mrh(sce, plot_by, mit_cutoff, include = "mrh")
 }
 \arguments{
 \item{sce}{sce object}
@@ -12,6 +12,8 @@ plot_mrh(sce, plot_by, mit_cutoff)
 \item{plot_by}{character vector; variables to plot by}
 
 \item{mit_cutoff}{numeric value; a horizontal line will be added at this threshold.}
+
+\item{include}{character vector containing m, r, and/or h. If m is in vector, mitochondrial genes will be plotted. If r, ribosomal genes. If h, hemoglobin genes.}
 }
 \value{
 list of plots
@@ -20,5 +22,5 @@ list of plots
 plot standard quality control metrics of mitochondrial, ribosomal, and hemoglobin gene counts. designed to work with run_sc_qc pipeline only.
 }
 \examples{
-plot_mrh(sce, plot_by = c("sample", "annot"), mit_cutoff = 5)
+plot_mrh(sce, plot_by = c("sample", "annot"), mit_cutoff = 5, include = "mrh")
 }
