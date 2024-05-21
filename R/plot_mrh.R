@@ -71,10 +71,10 @@ plot_mrh <- function(sce,
 
 
 
-        plot_grid(plots,
+        plot_grid(plotlist = plots,
                   ncol = 2
         ) %>%
-          # plot just legend
+          # add legend to plot
         plot_grid(.,
                   plotColData(sce, x = .x, y="sum", colour_by=.x) %>% cowplot::get_legend(),
                   rel_widths = c(5,1),
