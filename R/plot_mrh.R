@@ -19,8 +19,7 @@
 plot_mrh <- function(sce,
                      plot_by,
                      mit_cutoff)
-  # Purpose: plot mitochondrial, ribosomal and heme qc parameters
-{
+  {
   map(c(plot_by),
 
       ~plot_grid(
