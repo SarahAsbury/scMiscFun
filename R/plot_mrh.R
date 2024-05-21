@@ -57,7 +57,7 @@ plot_mrh <- function(sce,
         }
 
         if(str_detect(include, regex("h", ignore_case = T))){
-          plots <- c(plot,
+          plots <- c(plots,
                      list(plotColData(sce, x = "sum", y="subsets_Hemo_percent", colour_by=.x) +
                             theme(legend.position = "none"),
 
