@@ -76,7 +76,7 @@ plot_mrh <- function(sce,
         ) %>%
           # plot just legend
         plot_grid(.,
-                  plotColData(sce, x = .x, y="subsets_Mito_percent", colour_by=.x) %>% cowplot::get_legend(),
+                  plotColData(sce, x = .x, y="sum", colour_by=.x) %>% cowplot::get_legend(),
                   rel_widths = c(5,1),
                   ncol = 2)
       }) %>%
