@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_mrh.R
 \name{plot_mrh}
 \alias{plot_mrh}
-\title{plot_sample_qc}
+\title{plot_mrh}
 \usage{
 plot_mrh(sce, plot_by, mit_cutoff, include = "mrh")
 }
