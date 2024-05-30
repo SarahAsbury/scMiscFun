@@ -1,4 +1,4 @@
-#' plot_sample_qc
+#' plot_mrh
 #'
 #' plot standard quality control metrics of mitochondrial, ribosomal, and hemoglobin gene counts. designed to work with run_sc_qc pipeline only.
 #'
