@@ -12,6 +12,7 @@
 #' @import dplyr
 #' @import purrr
 #' @import Seurat
+#' @import stringr
 #' @import SingleCellExperiment
 #' @import tidySingleCellExperiment
 #' @export
