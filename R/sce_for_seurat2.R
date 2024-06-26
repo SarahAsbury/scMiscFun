@@ -4,7 +4,7 @@
 #'
 #' @param x sce object
 #' @param rawcounts name of assay containing rawcounts
-#' @param keep_assays any additional assays - other than rawcounts - to include in seurat object
+#' @param keep_additional_assays any additional assays - other than rawcounts - to include in seurat object
 #' @param altExp which alt experiments to include in seurat object
 #' @param keep_dim character vector of dimensions to keep
 #' @return seurat object. count layer is the rawcounts layer specified.
