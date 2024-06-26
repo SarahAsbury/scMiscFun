@@ -11,7 +11,7 @@ seurat_to_h5(x, output_dir_prefix, assays = c("RNA", "PROTEIN"))
 
 \item{output_dir_prefix}{# full path to output directory + any prefix. Will append assays and h5.Seurat to the file}
 
-\item{altExp_name}{sce object alt exp name to  to export. one file will be exported per each experiment.}
+\item{assays}{sce object assay name to  to export. one file will be exported per each experiment.}
 }
 \value{
 exports h5seurat and h5ad files from a seurat object

@@ -4,7 +4,7 @@
 #'
 #' @param x seurt object
 #' @param output_dir_prefix # full path to output directory + any prefix. Will append assays and h5.Seurat to the file
-#' @param altExp_name sce object alt exp name to  to export. one file will be exported per each experiment.
+#' @param assays sce object assay name to  to export. one file will be exported per each experiment.
 #' @return exports h5seurat and h5ad files from a seurat object
 #' @examples seurat_to_h5(seurat, "path/to/output/directory/output_prefix")
 #' @import dplyr
