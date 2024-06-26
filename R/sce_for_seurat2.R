@@ -52,7 +52,7 @@ sce_for_seurat2 <- function(x,
   # format
   # format default experiment assays for seurat
   assay(x, "counts") <-  assay(x, rawcounts) %>% as("sparseMatrix")
-  for(i in keep_assays){
+  for(i in keep_additional_assays){
     assay(x, i) %<>% as("sparseMatrix")
   }
 
@@ -62,7 +62,7 @@ sce_for_seurat2 <- function(x,
     for(i in altExp){
       counts(altExp(x, i)) <- altExp(x, i) %>% assay(rawcounts) %>% as("sparseMatrix")
     }
-    for(j in keep_assays){
+    for(j in keep_additional_assays){
       assay(altExp(x, "PROTEIN"), i) %<>% as("sparseMatrix")
     }
 
