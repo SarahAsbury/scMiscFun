@@ -51,8 +51,10 @@ sce_to_seurat <- function(x,
 
   # format
   # format default experiment assays for seurat
+  message(sprintf("Converting %s to counts. Note, this should be the assay containing raw data for downstream scvi tasks.", rawcounts))
   assay(x, "counts") <-  assay(x, rawcounts) %>% as("sparseMatrix")
   if(!"logcounts" %in% keep_additional_assays){
+    message("No logcounts provided in additional assays. Raw data will be stored in data layer.")
     assay(x, "logcounts") <-  assay(x, rawcounts) %>% as("sparseMatrix")
   }
 
