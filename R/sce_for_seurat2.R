@@ -32,7 +32,7 @@ sce_for_seurat2 <- function(x,
   # clean
   # remove extra assays
   regex$assays <- paste("^", c(rawcounts, keep_additional_assays), "$", sep = "|")
-  remove_assays <- assayNames %>% str_susbet(regex$assays, negate = T)
+  remove_assays <- assayNames %>% str_subset(regex$assays, negate = T)
   for(i in remove_assays){
     assay(x, i) <- NULL
   }
