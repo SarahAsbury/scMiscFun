@@ -82,7 +82,7 @@ sce_to_seurat <- function(x,
   }
 
   # create seurat
-  out <- as.Seurat(out)
+  out <- as.Seurat(x)
 
   # remove logcounts if not found in assays
   if(!"logcounts" %in% keep_additional_assays){
