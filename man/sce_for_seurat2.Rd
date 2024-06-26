@@ -7,7 +7,7 @@
 sce_for_seurat2(
   x,
   rawcounts = "rawcounts",
-  keep_additional_assays = c("rawcounts"),
+  keep_additional_assays = NULL,
   keep_dim = NULL,
   altExp = NULL
 )
@@ -17,7 +17,7 @@ sce_for_seurat2(
 
 \item{rawcounts}{name of assay containing rawcounts}
 
-\item{keep_additional_assays}{any additional assays - other than rawcounts - to include in seurat object}
+\item{keep_additional_assays}{character vector of any additional assays - other than rawcounts - to include in seurat object}
 
 \item{keep_dim}{character vector of dimensions to keep}
 

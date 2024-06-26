@@ -4,7 +4,7 @@
 #'
 #' @param x sce object
 #' @param rawcounts name of assay containing rawcounts
-#' @param keep_additional_assays any additional assays - other than rawcounts - to include in seurat object
+#' @param keep_additional_assays character vector of any additional assays - other than rawcounts - to include in seurat object
 #' @param altExp which alt experiments to include in seurat object
 #' @param keep_dim character vector of dimensions to keep
 #' @return seurat object. count layer is the rawcounts layer specified.
@@ -21,7 +21,7 @@
 
 sce_for_seurat2 <- function(x,
                             rawcounts = "rawcounts",
-                            keep_additional_assays = c("rawcounts"),
+                            keep_additional_assays = NULL,
                             keep_dim = NULL,
                             altExp = NULL
                             )
@@ -32,7 +32,7 @@ sce_for_seurat2 <- function(x,
   # clean
   # remove extra assays
   regex$assays <- paste0("^", c(rawcounts, keep_additional_assays), "$", collapse = "|")
-  remove_assays <- assayNames %>% str_subset(regex$assays, negate = T)
+  remove_assays <- assayNames(x) %>% str_subset(regex$assays, negate = T)
   for(i in remove_assays){
     assay(x, i) <- NULL
   }
