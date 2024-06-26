@@ -1,4 +1,4 @@
-#' sce_for_seurat2
+#' sce_to_seurat
 #'
 #' converts assays from single cell experiment to seurat format. Designed for h5 export for scvi. Reduced dimensions are removed by default unless specified to be kept.
 #'
@@ -19,7 +19,7 @@
 
 
 
-sce_for_seurat2 <- function(x,
+sce_to_seurat <- function(x,
                             rawcounts = "rawcounts",
                             keep_additional_assays = NULL,
                             keep_dim = NULL,
@@ -52,6 +52,10 @@ sce_for_seurat2 <- function(x,
   # format
   # format default experiment assays for seurat
   assay(x, "counts") <-  assay(x, rawcounts) %>% as("sparseMatrix")
+  if(!"logcounts" %in% keep_additional_assays){
+    assay(x, "logcounts") <-  assay(x, rawcounts) %>% as("sparseMatrix")
+  }
+
   for(i in keep_additional_assays){
     assay(x, i) %<>% as("sparseMatrix")
   }
@@ -60,10 +64,18 @@ sce_for_seurat2 <- function(x,
   if(!is.null(altExp)){
     warning("sce_for_seurat2 has not been tested with altExp. Remove this message once testing occurs.")
     for(i in altExp){
+      # raw counts
       counts(altExp(x, i)) <- altExp(x, i) %>% assay(rawcounts) %>% as("sparseMatrix")
-    }
-    for(j in keep_additional_assays){
-      assay(altExp(x, "PROTEIN"), i) %<>% as("sparseMatrix")
+
+      # log counts if not found
+      if(!"logcounts" %in% keep_additional_assays){
+        assay(x, "logcounts") <-  assay(x, rawcounts) %>% as("sparseMatrix")
+      }
+
+      # any additional assays
+      for(j in keep_additional_assays){
+        assay(altExp(x, "PROTEIN"), i) %<>% as("sparseMatrix")
+      }
     }
 
 

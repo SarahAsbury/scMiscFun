@@ -18,7 +18,7 @@
 sce_for_seurat <- function(x,
                            keep_dim = NULL)
 {
-  message("Deprecated, use sce_for_seurat2. Kept for compatability.")
+  message("Deprecated, use sce_to_seurat. Kept for compatability.")
 
   # clean
   # remove extra assays
