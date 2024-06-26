@@ -31,14 +31,14 @@ sce_for_seurat2 <- function(x,
 
   # clean
   # remove extra assays
-  regex$assays <- paste("^", c(rawcounts, keep_additional_assays), "$", sep = "|")
+  regex$assays <- paste("^", c(rawcounts, keep_additional_assays), "$", collapse = "|")
   remove_assays <- assayNames %>% str_subset(regex$assays, negate = T)
   for(i in remove_assays){
     assay(x, i) <- NULL
   }
 
   # remove extra altExp
-  regex$altExp <- paste("^", altExp, "$", sep = "|")
+  regex$altExp <- paste("^", altExp, "$", collapse = "|")
   remove_exp <- altExpNames(x) %>% str_subset(regex$altExp, negate = T)
   for(i in remove_exp){
     altExp(x, i) <- NULL
