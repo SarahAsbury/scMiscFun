@@ -12,7 +12,6 @@
 
 detect_gene_format <- function(gene_ids){
 
-  gene_ids <- sc_out %>% rownames %>% head
   huGeneFormatRegex = list(
     ensembl = "^ENSG[:digit:]+$",
     entrez = "^[:digit:]+$",
