@@ -3,8 +3,8 @@
 #' query a vector of gene ids using biomaRt ensembl database and return symbol. Optionally return additional attributes.
 #'
 #' @param gene_ids character vector of gene IDs (required)
-#' @param from_type (optional) specify format of gene IDs. One of:  If not provided, will automatically try and detect format.
-#' @param add_attribute (optional) additional gene attributes to add. use useMart("ensembl", dataset = "hsapiens_gene_ensembl") %>% listAttributes to see what attributes are available.
+#' @param from_type Optional. specify format of gene IDs. One of:  If not provided, will automatically try and detect format.
+#' @param add_attribute Optional. additional gene attributes to add. use useMart("ensembl", dataset = "hsapiens_gene_ensembl") %>% listAttributes to see what attributes are available.
 #' @return dataframe of gene symbol and any additional attributes
 #' @import dplyr
 #' @import purrr
