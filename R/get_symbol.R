@@ -1,6 +1,6 @@
 #' get_symbol
 #'
-#' query a vector of gene ids using biomaRt ensembl database and return symbol. Optionally return additional attributes.
+#' @description query a vector of gene ids using biomaRt ensembl database and return symbol. Optionally return additional attributes.
 #'
 #' @param gene_ids character vector of gene IDs (required)
 #' @param from_type Optional. specify format of gene IDs. One of:  If not provided, will automatically try and detect format.

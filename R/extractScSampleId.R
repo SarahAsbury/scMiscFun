@@ -1,6 +1,6 @@
 #' extractScSampleId
 #'
-#' extract sample Id from common single cell formats
+#' @description extract sample Id from common single cell formats
 #'
 #' @param x filename to extract sample Id from
 #' @param auto binary. if true, will attempt to extract common scrnaseq sample Id formats from filename

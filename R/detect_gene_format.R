@@ -1,6 +1,6 @@
 #' detect_gene_format
 #'
-#' given a vector of gene ids, automatically detect the gene fomrat from standard formats (ensembl, entrez, refseq, hgnc, uscs). Only provides with format declaration if all genes IDs match that format.
+#' @description given a vector of gene ids, automatically detect the gene fomrat from standard formats (ensembl, entrez, refseq, hgnc, uscs). Only provides with format declaration if all genes IDs match that format.
 #'
 #' @param x character vector of gene IDs
 #' @return format of gene IDs
