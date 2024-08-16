@@ -11,7 +11,7 @@ get_symbol(gene_ids, from_type = "auto", add_attribute = NULL)
 
 \item{from_type}{Optional. specify format of gene IDs. One of:  If not provided, will automatically try and detect format.}
 
-\item{add_attribute}{Optional. additional gene attributes to add. use useMart("ensembl", dataset = "hsapiens_gene_ensembl") %>% listAttributes to see what attributes are available.}
+\item{add_attribute}{Optional. additional gene attributes to add. use listAttributes for ensembl & hsapiens_gene_ensembl to see what attributes are available.}
 }
 \value{
 dataframe of gene symbol and any additional attributes
