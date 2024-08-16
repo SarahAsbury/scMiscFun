@@ -6,8 +6,7 @@
 #' @param auto binary. if true, will attempt to extract common scrnaseq sample Id formats from filename
 #' @param type character vector. specify which common sample IDs from common single cell formats to extract. Options include: sraSample, sraRun, sraExperiment, sraProject, sraAccession
 #' @param regex user specified regex to extract sampleId. If provided alongside type, any match to common regex type(s) or user-input regex will be used
-#' @return
-#' @examples
+#' @return sample ID
 #' @import dplyr
 #' @import purrr
 #' @export

@@ -15,6 +15,9 @@ extractScSampleId(x, auto = F, type = NULL, regex = NULL)
 
 \item{regex}{user specified regex to extract sampleId. If provided alongside type, any match to common regex type(s) or user-input regex will be used}
 }
+\value{
+sample ID
+}
 \description{
 extract sample Id from common single cell formats
 }
