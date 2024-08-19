@@ -5,7 +5,7 @@
 #' @param gene_ids character vector of gene IDs (required)
 #' @param from_type Optional. specify format of gene IDs. One of:  If not provided, will automatically try and detect format.
 #' @param add_attribute Optional. additional gene attributes to add. use listAttributes for ensembl & hsapiens_gene_ensembl to see what attributes are available.
-#' @param missing Optional. Binary. If TRUE, any gene IDs not found in the ensembl database will still be included in the results. Symbol will be the original gene ID instead.
+#' @param missing Default = TRUE. Binary. If TRUE, any gene IDs not found in the ensembl database will still be included in the results. Symbol will be the original gene ID instead.
 #'
 #' @return dataframe of gene symbol and any additional attributes
 #'
