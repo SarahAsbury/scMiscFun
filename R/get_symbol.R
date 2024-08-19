@@ -57,7 +57,8 @@ get_symbol <- function(gene_ids, from_type = "auto", add_attribute = NULL, missi
   if(missing == T){
     missing_query <- anti_join(
       data.frame(query = gene_ids),
-      result %>% rownames_to_column(var = "query")
+      result %>% rownames_to_column(var = "query"),
+      by = "query"
     ) %>%
       mutate(
         Symbol = query
