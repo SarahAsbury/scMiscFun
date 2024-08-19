@@ -3,7 +3,7 @@
 #' @description query a vector of gene ids using biomaRt ensembl database and return symbol. Optionally return additional attributes.
 #'
 #' @param gene_ids character vector of gene IDs (required)
-#' @param from_type Optional. specify format of gene IDs. One of:  If not provided, will automatically try and detect format.
+#' @param from_type Optional. specify format of gene IDs. One of: ensembl, entrez, refseq, hgnc, ucsc, symbol. If not provided, will automatically try and detect format.
 #' @param add_attribute Optional. additional gene attributes to add. use listAttributes for ensembl & hsapiens_gene_ensembl to see what attributes are available.
 #' @param missing Default = TRUE. Binary. If TRUE, any gene IDs not found in the ensembl database will still be included in the results. Symbol will be the original gene ID instead.
 #'
@@ -34,9 +34,10 @@ get_symbol <- function(gene_ids, from_type = "auto", add_attribute = NULL, missi
                        "refseq" = "refseq_mrna",
                        "hgnc" = "hgnc_id",
                        "ucsc" = "ucsc",
+                       "symbol" = "external_gene_name",
                        stop("Unsupported input type"))
 
-  attributes <- c(input_attr, "external_gene_name", add_attribute)
+  attributes <- c(input_attr, "external_gene_name", add_attribute) %>% unique
 
   # Perform the query
   result <- getBM(attributes = attributes,

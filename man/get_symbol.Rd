@@ -9,7 +9,7 @@ get_symbol(gene_ids, from_type = "auto", add_attribute = NULL, missing = T)
 \arguments{
 \item{gene_ids}{character vector of gene IDs (required)}
 
-\item{from_type}{Optional. specify format of gene IDs. One of:  If not provided, will automatically try and detect format.}
+\item{from_type}{Optional. specify format of gene IDs. One of: ensembl, entrez, refseq, hgnc, ucsc, symbol. If not provided, will automatically try and detect format.}
 
 \item{add_attribute}{Optional. additional gene attributes to add. use listAttributes for ensembl & hsapiens_gene_ensembl to see what attributes are available.}
 
