@@ -65,9 +65,11 @@ get_symbol <- function(gene_ids, from_type = "auto", add_attribute = NULL, missi
       ) %>%
       column_to_rownames(var = "query")
 
-    result <- dplyr::bind_rows(result, missing_query)
-  }
+    result <- dplyr::bind_rows(result, missing_query) %>%
+      # reorder rows
+      .[gene_ids,]
 
+  }
 
   return(result)
 }
