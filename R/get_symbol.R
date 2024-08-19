@@ -5,6 +5,7 @@
 #' @param gene_ids character vector of gene IDs (required)
 #' @param from_type Optional. specify format of gene IDs. One of:  If not provided, will automatically try and detect format.
 #' @param add_attribute Optional. additional gene attributes to add. use listAttributes for ensembl & hsapiens_gene_ensembl to see what attributes are available.
+#' @param missing Optional. Binary. If TRUE, any gene IDs not found in the ensembl database will still be included in the results. Symbol will be the original gene ID instead.
 #'
 #' @return dataframe of gene symbol and any additional attributes
 #'
@@ -16,7 +17,7 @@
 
 
 
-get_symbol <- function(gene_ids, from_type = "auto", add_attribute = NULL) {
+get_symbol <- function(gene_ids, from_type = "auto", add_attribute = NULL, missing = T) {
   # use ensembl database
   ensembl <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 
@@ -51,6 +52,21 @@ get_symbol <- function(gene_ids, from_type = "auto", add_attribute = NULL) {
     ) %>%
     column_to_rownames(var = input_attr) %>%
     dplyr::select(Symbol, any_of(add_attribute))
+
+  # add any missing query
+  if(missing == T){
+    missing_query <- anti_join(
+      data.frame(query = gene_ids),
+      result %>% rownames_to_column(var = "query")
+    ) %>%
+      mutate(
+        Symbol = query
+      ) %>%
+      column_to_rownames(var = "query")
+
+    result <- dplyr::bind_rows(result, missing_query)
+  }
+
 
   return(result)
 }
