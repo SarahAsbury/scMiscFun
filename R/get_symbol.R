@@ -3,12 +3,14 @@
 #' @description query a vector of gene ids using biomaRt ensembl database and return symbol. Optionally return additional attributes.
 #'
 #' @param gene_ids character vector of gene IDs (required)
+#' @param con ensembl bioMart connection. (required)
 #' @param from_type Optional. specify format of gene IDs. One of: ensembl, entrez, refseq, hgnc, ucsc, symbol. If not provided, will automatically try and detect format.
 #' @param add_attribute Optional. additional gene attributes to add. use listAttributes for ensembl & hsapiens_gene_ensembl to see what attributes are available.
 #' @param missing Default = TRUE. Binary. If TRUE, any gene IDs not found in the ensembl database will still be included in the results. Symbol will be the original gene ID instead.
-#'
+#' @examples
+#' # example code
+#' con <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 #' @return dataframe of gene symbol and any additional attributes
-#'
 #' @import dplyr
 #' @import purrr
 #' @import biomaRt
@@ -17,10 +19,7 @@
 
 
 
-get_symbol <- function(gene_ids, from_type = "auto", add_attribute = NULL, missing = T) {
-  # use ensembl database
-  ensembl <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-
+get_symbol <- function(gene_ids, from_type = "auto", add_attribute = NULL, missing = T, con) {
   # auto detect
   if(from_type == "auto"){
 
@@ -43,7 +42,7 @@ get_symbol <- function(gene_ids, from_type = "auto", add_attribute = NULL, missi
   result <- getBM(attributes = attributes,
                   filters = input_attr,
                   values = gene_ids,
-                  mart = ensembl
+                  mart = con
   ) %>%
     mutate(
       Symbol = ifelse(external_gene_name != "",

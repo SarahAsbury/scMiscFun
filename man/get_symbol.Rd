@@ -4,7 +4,13 @@
 \alias{get_symbol}
 \title{get_symbol}
 \usage{
-get_symbol(gene_ids, from_type = "auto", add_attribute = NULL, missing = T)
+get_symbol(
+  gene_ids,
+  from_type = "auto",
+  add_attribute = NULL,
+  missing = T,
+  con
+)
 }
 \arguments{
 \item{gene_ids}{character vector of gene IDs (required)}
@@ -14,10 +20,16 @@ get_symbol(gene_ids, from_type = "auto", add_attribute = NULL, missing = T)
 \item{add_attribute}{Optional. additional gene attributes to add. use listAttributes for ensembl & hsapiens_gene_ensembl to see what attributes are available.}
 
 \item{missing}{Default = TRUE. Binary. If TRUE, any gene IDs not found in the ensembl database will still be included in the results. Symbol will be the original gene ID instead.}
+
+\item{con}{ensembl bioMart connection. (required)}
 }
 \value{
 dataframe of gene symbol and any additional attributes
 }
 \description{
 query a vector of gene ids using biomaRt ensembl database and return symbol. Optionally return additional attributes.
+}
+\examples{
+# example code
+con <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 }
