@@ -54,7 +54,7 @@ sce_to_seurat <- function(x,
   message(sprintf("Converting %s to counts. Note, this should be the assay containing raw data for downstream scvi tasks.", rawcounts))
   assay(x, "counts") <-  assay(x, rawcounts) %>% as("sparseMatrix")
   if(!"logcounts" %in% keep_additional_assays){
-    message("No logcounts provided in additional assays. Raw data will be stored in data layer.")
+    message("No logcounts provided in additional assays. Raw data will be stored in seurat data layer.")
     assay(x, "logcounts") <-  assay(x, rawcounts) %>% as("sparseMatrix")
   }
 
@@ -85,6 +85,13 @@ sce_to_seurat <- function(x,
 
   # create seurat
   out <- as.Seurat(x)
+
+  # bug fix - originalexp used as assay name instead of RNA. This fixes that.
+  if("originalexp" %in% assayNames(out)){
+    out[["RNA"]] <- out[["originalexp"]]
+    DefaultAssay(out) <- "RNA"
+    out[["originalexp"]] <- NULL
+  }
 
   # remove logcounts if not found in assays
   if(!"logcounts" %in% keep_additional_assays){
