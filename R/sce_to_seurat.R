@@ -87,7 +87,7 @@ sce_to_seurat <- function(x,
   out <- as.Seurat(x)
 
   # bug fix - originalexp used as assay name instead of RNA. This fixes that.
-  if("originalexp" %in% assayNames(out)){
+  if("originalexp" %in% Assays(out)){
     out[["RNA"]] <- out[["originalexp"]]
     DefaultAssay(out) <- "RNA"
     out[["originalexp"]] <- NULL
