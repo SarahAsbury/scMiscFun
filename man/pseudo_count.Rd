@@ -2,7 +2,8 @@
 % Please edit documentation in R/pseudo_count.R
 \name{pseudo_count}
 \alias{pseudo_count}
-\title{Add pseudocounts to numeric data}
+\title{pseudo_count
+Add pseudocounts to numeric data}
 \usage{
 pseudo_count(x)
 }

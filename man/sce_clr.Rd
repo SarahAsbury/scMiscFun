@@ -2,7 +2,8 @@
 % Please edit documentation in R/sce_clr.R
 \name{sce_clr}
 \alias{sce_clr}
-\title{Apply centered log-ratio transformation to SingleCellExperiment object}
+\title{sce_clr
+Apply centered log-ratio transformation to SingleCellExperiment object}
 \usage{
 sce_clr(x, altExp_name = "PROTEIN")
 }

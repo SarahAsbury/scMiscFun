@@ -1,3 +1,4 @@
+#' sce_clr
 #' Apply centered log-ratio transformation to SingleCellExperiment object
 #'
 #' Performs centered log-ratio (CLR) transformation on count data stored in an
