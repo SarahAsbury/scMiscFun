@@ -10,6 +10,8 @@ check_fastq_type(x, chemistry = NULL, n = 50)
 \item{x}{full path to fastq file}
 
 \item{chemistry}{in development. specify cellRanger chemistry type, v1 - v5, if known for more precise detection.}
+
+\item{n}{number of rows of fastq file to use}
 }
 \value{
 character string. One of barcode, sample, or read.

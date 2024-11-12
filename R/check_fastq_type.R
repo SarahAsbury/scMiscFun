@@ -5,8 +5,7 @@
 #'
 #' @param x full path to fastq file
 #' @param chemistry in development. specify cellRanger chemistry type, v1 - v5, if known for more precise detection.
-#' @param read
-#' @param n
+#' @param n number of rows of fastq file to use
 #' @return character string. One of barcode, sample, or read.
 #' @import dplyr
 #' @import purrr
