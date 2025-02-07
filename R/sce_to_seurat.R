@@ -98,5 +98,7 @@ sce_to_seurat <- function(x,
     #add code here
   }
 
+  DefaultAssay(out) <- "RNA"
+
   return(out)
 }
