@@ -64,7 +64,6 @@ sce_to_seurat <- function(x,
 
   # format alt experiments
   if(!is.null(altExp)){
-    warning("sce_for_seurat2 has not been tested with altExp. Remove this message once testing occurs.")
     for(i in altExp){
       # raw counts
       counts(altExp(x, i)) <- altExp(x, i) %>% assay(rawcounts) %>% as("sparseMatrix")
