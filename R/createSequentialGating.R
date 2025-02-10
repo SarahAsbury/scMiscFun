@@ -273,7 +273,7 @@ createSequentialGating <- function(sce_initial, marker_pairs, assay_name) {
 
       ### save gates
       gate_df <- map_dfr(
-        c(boundaries$data, last_boundaries),
+        c(boundaries$data, as.list(last_boundaries)),
 
         ~.x %>% data.frame %>% setNames(c("population", "x_gate", "y_gate"))
       )
