@@ -54,8 +54,9 @@
 #' )
 #' }
 #'
-#' @importFrom SingleCellExperiment assay
-#' @importFrom stringr str_sub
+#' @import SingleCellExperiment
+#' @import tidySingleCellExperiment
+#' @import stringr
 #'
 #' @export
 

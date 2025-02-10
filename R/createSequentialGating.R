@@ -56,9 +56,13 @@
 #' )
 #' }
 #'
-#' @importFrom shiny fluidPage sliderInput actionButton renderPlot renderText observeEvent stopApp
-#' @importFrom ggplot2 ggplot geom_point geom_vline geom_hline theme_minimal labs
-#' @importFrom SingleCellExperiment assay
+#' @import shiny
+#' @import ggplot2
+#' @import SingleCellExperiment
+#' @import magrittr
+#' @import dplyr
+#' @import purrr
+#' @import tidySingleCellExperiment
 #'
 #' @export
 

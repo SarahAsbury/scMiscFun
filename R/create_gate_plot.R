@@ -8,6 +8,14 @@
 #' @param population_name Character string for plot title
 #' @param assay_name Character string specifying which assay to use
 #'
+#' @import ggplot2
+#' @import SingleCellExperiment
+#' @import tidySingleCellExperiment
+#' @import magrittr
+#' @import dplyr
+#' @import purrr
+
+#'
 #' @return ggplot object
 #' @export
 create_gate_plot <- function(sce,
