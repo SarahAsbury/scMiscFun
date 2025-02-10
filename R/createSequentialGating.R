@@ -133,7 +133,7 @@ createSequentialGating <- function(sce_initial, marker_pairs, assay_name) {
             marker1 = markers[1],
             marker2 = markers[2],
             x_boundary = input[[paste0("vline_", i)]],
-            y_boundary = input[[paste0("vline_", i)]],
+            y_boundary = input[[paste0("hline_", i)]],
             population_name =  markers[4],
             assay_name = assay_name)
         })
