@@ -254,6 +254,15 @@ createSequentialGating <- function(sce_initial, marker_pairs, assay_name) {
       output_sce <- last_sce[, cells_pass]
 
       # download
+      ### save report
+      screenshot(
+        filename = "gates",
+        scale = 3,
+        download = FALSE,
+        server_dir="."
+      )
+
+      ### save sce
       if(swap_exp == TRUE){
         output_sce %<>% swapAltExp("RNA")
       }
@@ -276,13 +285,6 @@ createSequentialGating <- function(sce_initial, marker_pairs, assay_name) {
       )
 
 
-      ### save report
-      screenshot(
-        filename = "gates",
-        scale = 3,
-        download = FALSE,
-        server_dir="."
-      )
 
     }
     )
