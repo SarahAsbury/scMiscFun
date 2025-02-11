@@ -63,11 +63,12 @@
 #' @import dplyr
 #' @import purrr
 #' @import tidySingleCellExperiment
+#' @import shinyscreenshot
 #'
 #' @export
 
 
-createSequentialGating <- function(sce_initial, marker_pairs, assay_name) {
+createSequentialGating <- function(sce_initial, marker_pairs, assay_name, swap_exp) {
   ui <- fluidPage(
     imap(
       marker_pairs,
