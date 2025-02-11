@@ -255,13 +255,13 @@ createSequentialGating <- function(sce_initial, marker_pairs, assay_name, swap_e
       output_sce <- last_sce[, cells_pass]
 
       # download
-      ### save report
-      screenshot(
-        filename = "gates",
-        scale = 3,
-        download = FALSE,
-        server_dir="."
-      )
+      # ### save report
+      # screenshot(
+      #   filename = "gates",
+      #   scale = 3,
+      #   download = FALSE,
+      #   server_dir="."
+      # )
 
       ### save sce
       if(swap_exp == TRUE){
@@ -273,11 +273,12 @@ createSequentialGating <- function(sce_initial, marker_pairs, assay_name, swap_e
       )
 
       ### save gates
-      gate_df <- map_dfr(
-        c(boundaries$data, as.list(last_boundaries)),
+      gate_df <- map_dfr(boundaries$data,
 
-        ~.x %>% data.frame %>% setNames(c("population", "x_gate", "y_gate"))
-      )
+        ~.x %>% data.frame
+        ) %>%
+        bind_rows(as.dataframe(last_boundaries)) #%>%
+        #setNames(c("population", "x_gate", "y_gate")
 
       write.csv(
         gate_df,
