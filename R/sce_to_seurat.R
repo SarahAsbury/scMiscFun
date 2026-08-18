@@ -59,7 +59,11 @@ sce_to_seurat <- function(x,
   }
 
   for(i in keep_additional_assays){
-    assay(x, i) %<>% as("sparseMatrix")
+    if(i %in% assayNames(x)){
+      assay(x, i) %<>% as("sparseMatrix")
+    } else {
+      warning(sprintf("Assay '%s' not found in main experiment, skipping", i))
+    }
   }
 
   # format alt experiments
@@ -75,7 +79,11 @@ sce_to_seurat <- function(x,
 
       # any additional assays
       for(j in keep_additional_assays){
-        assay(altExp(x, "PROTEIN"), i) %<>% as("sparseMatrix")
+        if(j %in% assayNames(altExp(x, i))){
+          assay(altExp(x, i), j) %<>% as("sparseMatrix")
+        } else {
+          warning(sprintf("Assay '%s' not found in altExp '%s', skipping", j, i))
+        }
       }
     }
 
