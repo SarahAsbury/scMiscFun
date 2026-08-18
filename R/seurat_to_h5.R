@@ -22,47 +22,45 @@ seurat_to_h5 <- function(x, #seurat
                          layer = NULL  # if NULL, exports counts
 ){
 
-  purrr::compact(
-    map(assays,
+  map(assays,
 
-        \(assay){
+      \(assay){
 
-          # If a specific layer is requested, check if it exists before proceeding
-          if (!is.null(layer) && layer != "counts") {
-            if (!layer %in% Assays(x)) {
-              cat(sprintf("  Layer '%s' not found in Seurat object, skipping %s export\n", layer, assay))
-              return(NULL)
-            }
+        # If a specific layer is requested, check if it exists before proceeding
+        if (!is.null(layer) && layer != "counts") {
+          if (!layer %in% Assays(x)) {
+            cat(sprintf("  Layer '%s' not found in Seurat object, skipping %s export\n", layer, assay))
+            return(NULL)
           }
-
-          # params - add layer to filename if specified
-          layer_suffix <- if (!is.null(layer) && layer != "counts") paste0("_", layer) else ""
-          output_fn <- sprintf("%s_%s%s.h5Seurat", output_dir_prefix, assay, layer_suffix)
-          cat("\n export h5ad file:", output_fn, "\n\n")
-
-          # dm
-          export_seurat <- x
-          DefaultAssay(export_seurat) <- assay
-
-          # If a different layer is specified, swap it into counts slot
-          if (!is.null(layer) && layer != "counts") {
-            cat(sprintf("  Exporting layer '%s' to X in %s H5AD\n", layer, assay))
-            export_seurat[[assay]]@counts <- export_seurat[[layer]]@counts
-          }
-
-          export_seurat[[assay]]$data <- NULL  # remove log counts to export counts
-
-          # export h5Seurat
-          SaveH5Seurat(export_seurat,
-                       filename = output_fn,
-                       overwrite = T)
-
-          # convert to h5ad
-          Convert(output_fn,
-                  dest = "h5ad",
-                  overwrite = T)
         }
-    )
+
+        # params - add layer to filename if specified
+        layer_suffix <- if (!is.null(layer) && layer != "counts") paste0("_", layer) else ""
+        output_fn <- sprintf("%s_%s%s.h5Seurat", output_dir_prefix, assay, layer_suffix)
+        cat("\n export h5ad file:", output_fn, "\n\n")
+
+        # dm
+        export_seurat <- x
+        DefaultAssay(export_seurat) <- assay
+
+        # If a different layer is specified, swap it into counts slot
+        if (!is.null(layer) && layer != "counts") {
+          cat(sprintf("  Exporting layer '%s' to X in %s H5AD\n", layer, assay))
+          export_seurat[[assay]]@counts <- export_seurat[[layer]]@counts
+        }
+
+        export_seurat[[assay]]$data <- NULL  # remove log counts to export counts
+
+        # export h5Seurat
+        SaveH5Seurat(export_seurat,
+                     filename = output_fn,
+                     overwrite = T)
+
+        # convert to h5ad
+        Convert(output_fn,
+                dest = "h5ad",
+                overwrite = T)
+      }
   )
 
 }
