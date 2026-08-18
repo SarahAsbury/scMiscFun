@@ -5,8 +5,10 @@
 #' @param x seurt object
 #' @param output_dir_prefix # full path to output directory + any prefix. Will append assays and h5.Seurat to the file
 #' @param assays sce object assay name to  to export. one file will be exported per each experiment.
+#' @param layer optional layer name to export to X in H5AD. If NULL (default), exports counts.
 #' @return exports h5seurat and h5ad files from a seurat object
 #' @examples seurat_to_h5(seurat, "path/to/output/directory/output_prefix")
+#' @examples seurat_to_h5(seurat, "path/to/output/directory/output_prefix", layer = "tcell_denoised_protein")
 #' @import dplyr
 #' @import purrr
 #' @import Seurat
@@ -16,20 +18,32 @@
 
 seurat_to_h5 <- function(x, #seurat
                          output_dir_prefix,
-                         assays = c("RNA", "PROTEIN")
+                         assays = c("RNA", "PROTEIN"),
+                         layer = NULL  # if NULL, exports counts
 ){
 
   map(assays,
 
       \(assay){
 
-        # params
-        output_fn <- sprintf("%s_%s.h5Seurat", output_dir_prefix, assay)
+        # params - add layer to filename if specified
+        layer_suffix <- if (!is.null(layer) && layer != "counts") paste0("_", layer) else ""
+        output_fn <- sprintf("%s_%s%s.h5Seurat", output_dir_prefix, assay, layer_suffix)
         cat("\n export h5ad file:", output_fn, "\n\n")
 
         # dm
         export_seurat <- x
         DefaultAssay(export_seurat) <- assay
+
+        # If a different layer is specified, swap it into counts slot
+        if (!is.null(layer) && layer != "counts") {
+          if (layer %in% Assays(export_seurat)) {
+            export_seurat[[assay]]@counts <- export_seurat[[layer]]@counts
+          } else {
+            stop(sprintf("Layer '%s' not found in Seurat object.", layer))
+          }
+        }
+
         export_seurat[[assay]]$data <- NULL  # remove log counts to export counts
 
         # export h5Seurat
