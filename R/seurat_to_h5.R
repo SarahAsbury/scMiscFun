@@ -26,10 +26,10 @@ seurat_to_h5 <- function(x, #seurat
 
       \(assay){
 
-        # If a specific layer is requested, check if it exists before proceeding
+        # If a specific layer is requested, check if it exists in this assay before proceeding
         if (!is.null(layer) && layer != "counts") {
-          if (!layer %in% Assays(x)) {
-            cat(sprintf("  Layer '%s' not found in Seurat object, skipping %s export\n", layer, assay))
+          if (!layer %in% Layers(x[[assay]])) {
+            cat(sprintf("  Layer '%s' not found in %s assay, skipping %s export\n", layer, assay, assay))
             return(NULL)
           }
         }
@@ -46,7 +46,7 @@ seurat_to_h5 <- function(x, #seurat
         # If a different layer is specified, swap it into counts slot
         if (!is.null(layer) && layer != "counts") {
           cat(sprintf("  Exporting layer '%s' to X in %s H5AD\n", layer, assay))
-          export_seurat[[assay]]@counts <- export_seurat[[layer]]@counts
+          export_seurat[[assay]]@counts <- LayerData(export_seurat, assay = assay, layer = layer)
         }
 
         export_seurat[[assay]]$data <- NULL  # remove log counts to export counts
