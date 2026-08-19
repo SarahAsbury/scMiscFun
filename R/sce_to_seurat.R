@@ -77,14 +77,6 @@ sce_to_seurat <- function(x,
         assay(x, "logcounts") <-  assay(x, rawcounts) %>% as("sparseMatrix")
       }
 
-      # any additional assays
-      for(j in keep_additional_assays){
-        if(j %in% assayNames(altExp(x, i))){
-          assay(altExp(x, i), j) %<>% as("sparseMatrix")
-        } else {
-          warning(sprintf("Assay '%s' not found in altExp '%s', skipping", j, i))
-        }
-      }
     }
 
 
@@ -98,6 +90,22 @@ sce_to_seurat <- function(x,
     out[["RNA"]] <- out[["originalexp"]]
     DefaultAssay(out) <- "RNA"
     out[["originalexp"]] <- NULL
+  }
+
+  # Add keep_additional_assays as layers to the appropriate altExp assays
+  # (as.Seurat only converts standard assays like counts/logcounts, custom assays are dropped)
+  if(!is.null(altExp) && !is.null(keep_additional_assays)){
+    for(exp in altExp){
+      if(exp %in% Assays(out)){
+        for(layer_name in keep_additional_assays){
+          # Check if this layer exists in the original SCE altExp
+          if(layer_name %in% assayNames(altExp(x, exp))){
+            cat(sprintf("Adding '%s' as layer to %s assay\n", layer_name, exp))
+            out[[exp]][[layer_name]] <- assay(altExp(x, exp), layer_name) %>% as("sparseMatrix")
+          }
+        }
+      }
+    }
   }
 
   # remove logcounts if not found in assays
