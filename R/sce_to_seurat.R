@@ -92,16 +92,18 @@ sce_to_seurat <- function(x,
     out[["originalexp"]] <- NULL
   }
 
-  # Add keep_additional_assays as layers to the appropriate altExp assays
+  # Add keep_additional_assays as separate assays
   # (as.Seurat only converts standard assays like counts/logcounts, custom assays are dropped)
   if(!is.null(altExp) && !is.null(keep_additional_assays)){
     for(exp in altExp){
       if(exp %in% Assays(out)){
-        for(layer_name in keep_additional_assays){
-          # Check if this layer exists in the original SCE altExp
-          if(layer_name %in% assayNames(altExp(x, exp))){
-            cat(sprintf("Adding '%s' as layer to %s assay\n", layer_name, exp))
-            out[[exp]][[layer_name]] <- assay(altExp(x, exp), layer_name) %>% as("sparseMatrix")
+        for(assay_name in keep_additional_assays){
+          # Check if this assay exists in the original SCE altExp
+          if(assay_name %in% assayNames(altExp(x, exp))){
+            new_assay_name <- sprintf("%s_%s", exp, assay_name)
+            cat(sprintf("Adding '%s' as separate assay\n", new_assay_name))
+            assay_mat <- assay(altExp(x, exp), assay_name) %>% as("sparseMatrix")
+            out[[new_assay_name]] <- CreateAssayObject(counts = assay_mat)
           }
         }
       }

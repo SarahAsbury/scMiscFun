@@ -18,36 +18,19 @@
 
 seurat_to_h5 <- function(x, #seurat
                          output_dir_prefix,
-                         assays = c("RNA", "PROTEIN"),
-                         layer = NULL  # if NULL, exports counts
+                         assays = c("RNA", "PROTEIN")
 ){
 
   map(assays,
 
       \(assay){
 
-        # If a specific layer is requested, check if it exists in this assay before proceeding
-        if (!is.null(layer) && layer != "counts") {
-          if (!layer %in% Layers(x[[assay]])) {
-            cat(sprintf("  Layer '%s' not found in %s assay, skipping %s export\n", layer, assay, assay))
-            return(NULL)
-          }
-        }
-
-        # params - add layer to filename if specified
-        layer_suffix <- if (!is.null(layer) && layer != "counts") paste0("_", layer) else ""
-        output_fn <- sprintf("%s_%s%s.h5Seurat", output_dir_prefix, assay, layer_suffix)
+        output_fn <- sprintf("%s_%s.h5Seurat", output_dir_prefix, assay)
         cat("\n export h5ad file:", output_fn, "\n\n")
 
         # dm
         export_seurat <- x
         DefaultAssay(export_seurat) <- assay
-
-        # If a different layer is specified, swap it into counts slot
-        if (!is.null(layer) && layer != "counts") {
-          cat(sprintf("  Exporting layer '%s' to X in %s H5AD\n", layer, assay))
-          export_seurat[[assay]]@counts <- LayerData(export_seurat, assay = assay, layer = layer)
-        }
 
         export_seurat[[assay]]$data <- NULL  # remove log counts to export counts
 
